@@ -1,2 +1,6 @@
 #virtual env file
-.bin
+bin
+.Python 
+lib
+include
+__pycache__
