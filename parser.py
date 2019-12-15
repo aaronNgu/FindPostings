@@ -1,14 +1,17 @@
+
 class Parser:
     def __init__(self):
         pass
+    def parse_title(self):
+        pass
+    def parse_link(self):
+        pass
 
-    def parse_title(self, title):
-        pass
-    def parse_link(self, title):
-        pass
-    def parse_price(self, title):
-        pass
-    def parse_time(self, title):
-        pass
-    def parse_number_of_bedroom(self, title):
+    def parse_price(self, price):
+        return price[1:]
+
+    def parse_datetime(self, time):
+        return time.spli()
+
+    def parse_numberOfBedroom(self):
         pass
