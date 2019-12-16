@@ -38,12 +38,17 @@ class Scraper:
             time = x.find("time")['datetime']
             numberOfBedroom = x.find("span", class_="housing") 
             numberOfBedroom = numberOfBedroom if numberOfBedroom == None else numberOfBedroom.text
+
+            #setting values
             single_post['title'] = title
             single_post['link'] = link
             single_post['price'] = self.parse.parse_price(price)
-            single_post['date'] = self.parse.parse_datetime(time)[0]
-            single_post['time'] = self.parse.parse_datetime(time)[1]
-            single_post['numberOfBedroom'] = numberOfBedroom
+            datetime = self.parse.parse_datetime(time)
+            single_post['date'] = datetime[0]
+            single_post['time'] = datetime[1]
+            bedrooms_squarefoot = self.parse.parse_numberOfBedroom(numberOfBedroom)
+            single_post['bedroom'] = bedrooms_squarefoot[0]
+            single_post['squareFoot'] =  bedrooms_squarefoot[1]
             result.append(single_post)
 
         return result

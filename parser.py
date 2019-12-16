@@ -11,7 +11,15 @@ class Parser:
         return price[1:]
 
     def parse_datetime(self, time):
-        return time.spli()
+        return time.split()
 
-    def parse_numberOfBedroom(self):
-        pass
+    def parse_numberOfBedroom(self, bedroom):
+        result = [None, None]
+        if (bedroom == None): return result
+        for x in bedroom.split('\n'):
+            if 'br' in x:
+                result[0] = x.split()[:-1][0][:-2]
+            if 'ft2' in x:
+                result[1] = x.split()[:-1][0][:-3]
+
+        return result
