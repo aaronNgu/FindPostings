@@ -9,7 +9,7 @@ class Scraper:
 
     def __init__ (self):
         self.page = ''
-        self.postings = {}
+        self.postings = []
         self.parse = Parser()
 
     def get(self, link): 
@@ -53,26 +53,43 @@ class Scraper:
 
         return result
     
+    def get_parse_and_add_single_page(self, url):
+        response = self.get(url)
+        page = soup(response.content, 'html.parser')
+        self.set_page(page)
+        lists = self.parse_single_page_postings(self.get_page())
+        self.add_postings(lists)
+
+        return len(lists)
+
     def get_all_postings_for_item(self, item, **kwargs):
-        pass
+        #assume each page has 120 postings
+        url = self.url(item, **kwargs)
+        self.get_parse_and_add_single_page(url)
+
+        total_postings = self.find_how_many_postings(self.get_page())
+        #first page retrieves 120 postings
+        postings_seen = 120
+        
+        while(postings_seen < int(total_postings)):
+            url = self.url(item, **kwargs, s=str(postings_seen))
+            seen = self.get_parse_and_add_single_page(url)
+            postings_seen += seen
 
     def find_how_many_postings(self, page):
         return page.find("span", class_="totalcount").text
 
-    def set_soup(self, page):
+    def set_page(self, page):
         self.page = page
 
-    def set_postings(self, dictionary):
-        pass
-
-    def add_postings(self, dictionary):
-        pass
+    def add_postings(self, new_lists):
+        self.postings += new_lists
         
     def get_postings(self):
         return self.postings
 
-    def get_soup(self):
-        return self.soup
+    def get_page(self):
+        return self.page
 
 
 if __name__ == '__main__':
