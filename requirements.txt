@@ -1,0 +1,16 @@
+numpy==1.17.4
+Flask_SQLAlchemy==2.4.1
+Flask==1.1.1
+backend==0.2.4.1
+brotli==1.0.7
+cchardet==2.1.5
+cryptography==2.8
+Cython==0.29.14
+ipaddr==2.2.0
+keyring==20.0.0
+lxml==4.4.2
+ordereddict==1.1
+protobuf==3.11.2
+pyOpenSSL==19.1.0
+usercustomize==1.0.0
+wincertstore==0.2
