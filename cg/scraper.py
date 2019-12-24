@@ -1,3 +1,4 @@
+"""Scraps information from craigslist"""
 import requests
 from bs4 import BeautifulSoup as soup
 from parser import Parser

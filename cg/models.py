@@ -1,4 +1,5 @@
-from cg.app import db
+"""Defined model of the database"""
+from cg.scheduler import db
 
 class Post(db.Model):
 

@@ -1,4 +1,4 @@
-
+"""Parse information scraped from craigslist. Mainly used in scraper.py"""
 class Parser:
     def __init__(self):
         pass

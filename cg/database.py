@@ -1,11 +1,11 @@
-
+"""wrapper class to interact with the database"""
 class Database():
     #should have everything that represents the database
 
     def __init__(self, db):
         self.db = db.session
 
-    def add_single_post(self, instance):
+    def add_single_item(self, instance):
         #takes an Postings object
         self.db.add(instance)
         self.db.commit()
