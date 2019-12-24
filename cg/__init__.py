@@ -1,14 +1,14 @@
 import os
 
-from flask import Flask, g
-from cg.scheduler import db
-from cg.view import view
+from flask import Flask
+from cg.view import views
+from cg.database import db
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile('config.py', silent=True)
-    app.register_blueprint(view)
+    app.register_blueprint(views)
 
     db.init_app(app)
 
@@ -24,10 +24,5 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
 
     return app

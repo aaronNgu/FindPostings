@@ -1,7 +1,7 @@
 """Scraps information from craigslist"""
 import requests
 from bs4 import BeautifulSoup as soup
-from parser import Parser
+from cg.parser import Parser
 
 # apt/housing 10km away from V6T1Z4 with 2 bedrooms unfurnished
 BASE_URL = 'https://vancouver.craigslist.org/search/'
