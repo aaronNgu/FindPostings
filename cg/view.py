@@ -13,7 +13,13 @@ def hello_name(name):
 
 @views.route('/getAll')
 def get_all():
-    return add_post_to_database()
+    sch = Scheduler()
+    return sch.add_post_to_database()
+
+@views.route('/delete')
+def delete():
+    delete_table()
+    return 'deleted table'
 
 if __name__ == '__main__':
     pass
