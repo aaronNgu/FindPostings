@@ -98,7 +98,7 @@ class Parser:
     def __init__(self):
         pass
 
-   def parse_price(self, price):
+    def parse_price(self, price):
         return price[1:]
 
     def parse_datetime(self, time):
