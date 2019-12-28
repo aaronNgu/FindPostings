@@ -12,7 +12,7 @@ class Database():
             db.create_all()
 
     def add_single_item(self, instance):
-        #takes an Postings object
+        #takes an SQLAlchemy object
         self.db.add(instance)
         self.db.commit()
 

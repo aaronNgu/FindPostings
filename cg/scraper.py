@@ -33,6 +33,7 @@ class Scraper:
         #Assume that every post has a title, price tag, date time and link
         for x in list_postings:
             single_post = {}
+            pid = x.find("a", class_="result-title hdrlnk")['data-id']
             title = x.find("a", class_="result-title hdrlnk").text
             link = x.find("a", class_="result-title hdrlnk")['href']
             price = x.find("span", class_="result-price").text
@@ -41,6 +42,7 @@ class Scraper:
             numberOfBedroom = numberOfBedroom if numberOfBedroom == None else numberOfBedroom.text
 
             #setting values
+            single_post['pid'] = pid
             single_post['title'] = title
             single_post['link'] = link
             single_post['price'] = self.parse.parse_price(price)

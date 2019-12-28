@@ -1,25 +1,55 @@
 from flask import Flask, Blueprint
-from cg.scheduler import *
+from cg.scheduler import Scheduler
 
 views = Blueprint('views', __name__) 
 
 @views.route('/')
 def hello():
-    return 'Hello World'
+    return 'Hello` World'
 
 @views.route('/<name>')
 def hello_name(name):
     return 'Hello {}'.format(name)
 
-@views.route('/getAll')
-def get_all():
+@views.route('/addUnit')
+def add_Unit():
     sch = Scheduler()
-    return sch.add_post_to_database()
+    sch.add_unit_to_database()
+    return 'added unit to database'
 
-@views.route('/delete')
+@views.route('/addSession')
+def add_session():
+    sch = Scheduler()
+    sch.add_session_to_database()
+    return 'added session to database'
+
+@views.route('/getAllUnit')
+def get_all_unit():
+    sch = Scheduler()
+    return sch.get_all_Unit()
+
+@views.route('/getAllSession')
+def get_all_session():
+    sch = Scheduler()
+    return sch.get_all_Session()
+
+@views.route('/delete_unit')
 def delete():
-    delete_table()
-    return 'deleted table'
+    sch = Scheduler()
+    sch.delete_Unit_table()
+    return 'deleted all unit'
+
+@views.route('/delete_session')
+def delete_session():
+    sch = Scheduler()
+    sch.delete_Session_table()
+    return 'deleted all session'
+
+@views.route('/createdb')
+def create_database():
+    sch = Scheduler()
+    sch.create_database()
+    return 'created database'
 
 if __name__ == '__main__':
     pass
