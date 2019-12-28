@@ -1,7 +1,6 @@
 """Scraps information from craigslist"""
 import requests
 from bs4 import BeautifulSoup as soup
-from cg.parser import Parser
 
 # apt/housing 10km away from V6T1Z4 with 2 bedrooms unfurnished
 BASE_URL = 'https://vancouver.craigslist.org/search/'
@@ -94,9 +93,28 @@ class Scraper:
     def get_page(self):
         return self.page
 
+"""Parse information scraped from craigslist. Mainly used in scraper.py"""
+class Parser:
+    def __init__(self):
+        pass
+    def parse_title(self):
+        pass
+    def parse_link(self):
+        pass
 
-if __name__ == '__main__':
-    scrapy = Scraper()
-    url = scrapy.url('apa', search_distance='10',postal='V6T1Z4')
-    response = scrapy.get(url)
-    print(response.status_code)
+    def parse_price(self, price):
+        return price[1:]
+
+    def parse_datetime(self, time):
+        return time.split()
+
+    def parse_numberOfBedroom(self, bedroom):
+        result = [None, None]
+        if (bedroom == None): return result
+        for x in bedroom.split('\n'):
+            if 'br' in x:
+                result[0] = x.split()[:-1][0][:-2]
+            if 'ft2' in x:
+                result[1] = x.split()[:-1][0][:-3]
+
+        return result
