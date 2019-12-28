@@ -97,12 +97,8 @@ class Scraper:
 class Parser:
     def __init__(self):
         pass
-    def parse_title(self):
-        pass
-    def parse_link(self):
-        pass
 
-    def parse_price(self, price):
+   def parse_price(self, price):
         return price[1:]
 
     def parse_datetime(self, time):
