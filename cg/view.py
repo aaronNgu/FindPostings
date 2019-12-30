@@ -23,6 +23,13 @@ def add_session():
     sch.add_session_to_database()
     return 'added session to database'
 
+@views.route('/add/<postal>/<distance>')
+def add(postal, distance):
+    sch = Scheduler()
+    session = sch.add_session_to_database(postal, distance)
+    sch.add_unit_to_database(postal, distance, session)
+    return 'added {} {}'.format(postal, distance)
+
 @views.route('/getAllUnit')
 def get_all_unit():
     sch = Scheduler()

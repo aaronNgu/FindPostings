@@ -20,11 +20,12 @@ class Unit(db.Model):
 
     __tablename__ = 'unit'
     apa_id = db.Column(db.Integer, primary_key=True)
+    pid = db.Column(db.String, unique=True)
     title = db.Column(db.String)
     price = db.Column(db.String)
     link = db.Column(db.String)
-    bedroom = db.Column(db.Integer)
-    squarefoot = db.Column(db.Integer)
+    bedroom = db.Column(db.String)
+    squarefoot = db.Column(db.String)
     sess_id = db.Column(db.Integer, db.ForeignKey('session.sess_id'))
 
      

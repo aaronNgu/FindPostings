@@ -13,8 +13,13 @@ class Database():
 
     def add_single_item(self, instance):
         #takes an SQLAlchemy object
-        self.db.add(instance)
-        self.db.commit()
+        try: 
+            self.db.add(instance)
+            self.db.commit()
+        except:
+            self.db.rollback()
+            print("can't add item")
+            pass
 
     def delete_all_rows_from_table(self, model):
         self.db.query(model).delete()
