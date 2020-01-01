@@ -20,9 +20,6 @@ class Scheduler(Resource):
     def __init__(self, create=False):
         self.dtb = Database(db, create_db=create)
 
-    def create_database(self):
-        Database(db, create_db=True)
-
     def add_unit_to_database(self, ptl,  distance, session):
         sc = Scraper()
         sc.get_all_postings_for_item('apa', search_distance=distance, postal=ptl)
@@ -30,7 +27,7 @@ class Scheduler(Resource):
 
         for post in postings:
             unit = Unit(title=post['title'], price=post['price'],\
-            link=post['link'], pid=post['pid'], bedroom=post['bedroom'],\
+            link=post['link'], pid=int(post['pid']), bedroom=post['bedroom'],\
             squarefoot=post['squareFoot'], sess_id=session.sess_id)
             self.dtb.add_single_item(unit)
 

@@ -1,27 +1,37 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, request
 from cg.scheduler import Scheduler
 
 views = Blueprint('views', __name__) 
 
-@views.route('/')
-def hello():
-    return 'Hello` World'
+"""search with a set of criteria"""
+@views.route('/', methods=['GET','POST'])
+def search():
+    if request.method == 'POST':
+        postal = request.values.get('postal')
+        distance = request.values.get('distance')
+        return 'arguments are "{}" "{}"'.format(postal, distance)
 
-@views.route('/<name>')
-def hello_name(name):
-    return 'Hello {}'.format(name)
+    else :
+        return 'in else case of search()'
 
-@views.route('/addUnit')
-def add_Unit():
-    sch = Scheduler()
-    sch.add_unit_to_database()
-    return 'added unit to database'
+"""updates session details"""
+@views.route('/update', methods=['PUT'])
+def update():
+    """used in 'save' button"""
+    return 'update api in put'
 
-@views.route('/addSession')
-def add_session():
-    sch = Scheduler()
-    sch.add_session_to_database()
-    return 'added session to database'
+"""get results of specified session"""
+@views.route('/session')
+def get_session():
+    """makes database query for the units associated with the session"""
+    session = request.args.get('sess')
+    return 'the session is {}'.format(session)
+
+""""gets all session"""
+@views.route('/getall')
+def get_all_session():
+    """makes database query for all the sessions"""
+    return 'get_all_session()'
 
 @views.route('/add/<postal>/<distance>')
 def add(postal, distance):
@@ -36,7 +46,7 @@ def get_all_unit():
     return sch.get_all_Unit()
 
 @views.route('/getAllSession')
-def get_all_session():
+def get_all_sess():
     sch = Scheduler()
     return sch.get_all_Session()
 
@@ -54,8 +64,7 @@ def delete_session():
 
 @views.route('/createdb')
 def create_database():
-    sch = Scheduler()
-    sch.create_database()
+    Scheduler(create=True)
     return 'created database'
 
 if __name__ == '__main__':
