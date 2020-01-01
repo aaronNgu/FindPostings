@@ -16,9 +16,9 @@ class Database():
         try: 
             self.db.add(instance)
             self.db.commit()
-        except:
+        except Exception as e:
             self.db.rollback()
-            print("can't add item")
+            print("can't add item {}".format(e))
             pass
 
     def delete_all_rows_from_table(self, model):
@@ -29,5 +29,8 @@ class Database():
         """takes in a specified model from models.py"""
         return self.db.query(model).all()
    
+    def query_session(self, model, session_name):
+        return self.db.query(model).filter_by(name=session_name).first()
+
     def get_db(self):
         return self.db        

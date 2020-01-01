@@ -5,8 +5,7 @@ from cg.database import db
 class Session(db.Model):
     __tablename__ = 'session'
     sess_id = db.Column(db.Integer, primary_key=True)
-    time = db.Column(db.Date)
-    keep = db.Column(db.Boolean)
+    name = db.Column(db.String, unique=True)
     search_type = db.Column(db.String)
     postal = db.Column(db.String)
     distance_from = db.Column(db.Integer) 

@@ -22,7 +22,8 @@ class Scraper:
     def url(self, item, **kwargs):
         url = BASE_URL + item + '?'
         for key in kwargs:
-            url = url + key + '=' + kwargs[key] + '&'
+            if kwargs[key] != None:
+                url = url + key + '=' + kwargs[key] + '&'
         return url[:-1]
     
     def parse_single_page_postings(self, page):
