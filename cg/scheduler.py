@@ -8,12 +8,11 @@ unit = {
     'title': fields.String,
     'price': fields.String,
     'link': fields.String, 
-    'pid':fields.String,
-    'bedroom':fields.String,
-    'date': fields.String,
-    'squarefoot':fields.String,
-    'time':fields.String
+    'pid': fields.String,
+    'bedroom': fields.String,
+    'squarefoot': fields.String,
 }
+
 session = {
     'name':fields.String,
     'postal' : fields.String,
@@ -35,10 +34,11 @@ class Scheduler(Resource):
                     min_bedrooms=min_bdr, max_bedrooms=max_bdr)
         return self.sc.get_postings()
 
-    def add_unit_to_database(self, ptl,  distance, session):
-        sc = Scraper()
-        sc.get_all_postings_for_item('apa', search_distance=distance, postal=ptl)
-        postings = sc.get_postings()
+    def add_unit_to_database(self, search_type, session, postal=None, distance=None, \
+        mx_price=None, min_price=None, min_bdr=None, max_bdr=None):
+        search_type = 'hhh' if not search_type else search_type
+        self.sc.get_all_postings_for_item('apa', search_distance=distance, postal=postal)
+        postings = self.sc.get_postings()
 
         for post in postings:
             unit = Unit(title=post['title'], price=post['price'],\
@@ -54,6 +54,10 @@ class Scheduler(Resource):
         self.dtb.add_single_item(sess)
         return sess
     
+    @marshal_with(unit, envelope='units')
+    def get_units_of_session(self, name):
+        return self.dtb.query_units_of_session(Session, Unit, name)
+
     @marshal_with(session, envelope='session')
     def get_session(self, name):
         return self.dtb.query_session(Session, session_name=name)

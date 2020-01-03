@@ -32,5 +32,9 @@ class Database():
     def query_session(self, model, session_name):
         return self.db.query(model).filter_by(name=session_name).first()
 
+    def query_units_of_session(self, model, join_model, session_name):
+        number = self.db.query(model).filter_by(name=session_name).first().sess_id
+        return self.db.query(join_model).filter_by(sess_id=number).all()
+
     def get_db(self):
         return self.db        

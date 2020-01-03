@@ -35,9 +35,10 @@ def save_session():
         max_bdr = request.values.get('max_bdr')
         email = request.values.get('email')
         sch = Scheduler()
-        sch.add_session_to_database(search_type, name=name, postal=postal, \
-            distance=distance, mx_price=mx_price, min_price=min_price, \
-                min_bdr=min_bdr, max_bdr=max_bdr, email=email) 
+        session = sch.add_session_to_database(search_type, name=name, postal=postal, \
+                            distance=distance, mx_price=mx_price, min_price=min_price, \
+                                min_bdr=min_bdr, max_bdr=max_bdr, email=email) 
+        sch.add_unit_to_database(search_type, session, postal=postal, distance=distance)
         return 'saved session' 
     return "wasn't a post request"
 
@@ -48,9 +49,11 @@ def update():
     return 'update api in put'
 
 """get results of specified session"""
-@views.route('/session')
+@views.route('/units')
 def get_results_of_session():
-    return 'get results of session'
+    name = request.args.get('name')
+    sch = Scheduler()
+    return sch.get_units_of_session(name)
 
 @views.route('/session')
 def get_session():
@@ -58,12 +61,6 @@ def get_session():
     name = request.args.get('name')
     sch = Scheduler()
     return sch.get_session(name)
-
-""""gets all session"""
-@views.route('/getall')
-def get_all_session():
-    """makes database query for all the sessions"""
-    return 'get_all_session()'
 
 @views.route('/add/<postal>/<distance>')
 def add(postal, distance):
