@@ -79,14 +79,20 @@ def get_all_sess():
     sch = Scheduler()
     return sch.get_all_Session()
 
-@views.route('/delete_unit')
-def delete():
+@views.route('/deletesession')
+def deletesession():
+    name = request.args.get('name')
+    sch = Scheduler()
+    return sch.delete_session(name)
+
+@views.route('/deleteallunit')
+def deleteallunit():
     sch = Scheduler()
     sch.delete_Unit_table()
     return 'deleted all unit'
 
-@views.route('/delete_session')
-def delete_session():
+@views.route('/deleteallsession')
+def deleteallsession():
     sch = Scheduler()
     sch.delete_Session_table()
     return 'deleted all session'

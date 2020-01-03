@@ -69,6 +69,10 @@ class Scheduler(Resource):
     @marshal_with(session, envelope='session')
     def get_all_Session(self):
         return self.dtb.query_all_from_table(Session)
+    
+    def delete_session(self, name):
+        self.dtb.delete_session(Session, Unit, name)
+        return 'delete session {}'.format(name)
 
     def delete_Unit_table(self):
         self.dtb.delete_all_rows_from_table(Unit)

@@ -25,6 +25,12 @@ class Database():
         self.db.query(model).delete()
         self.db.commit()
 
+    def delete_session(self, session, unit,  name):
+        sess_id = self.db.query(session).filter_by(name=name).first().sess_id
+        self.db.query(unit).filter_by(sess_id=sess_id).delete()
+        self.db.query(session).filter_by(name=name).delete()
+        self.db.commit()
+
     def query_all_from_table(self, model):
         """takes in a specified model from models.py"""
         return self.db.query(model).all()
