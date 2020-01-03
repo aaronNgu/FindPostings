@@ -33,14 +33,23 @@ class Database():
 
     def query_all_from_table(self, model):
         """takes in a specified model from models.py"""
-        return self.db.query(model).all()
-   
+        try:
+            return self.db.query(model).all()
+        except:
+            pass
+
     def query_session(self, model, session_name):
-        return self.db.query(model).filter_by(name=session_name).first()
+        try:
+            return self.db.query(model).filter_by(name=session_name).first()
+        except:
+            pass
 
     def query_units_of_session(self, model, join_model, session_name):
-        number = self.db.query(model).filter_by(name=session_name).first().sess_id
-        return self.db.query(join_model).filter_by(sess_id=number).all()
+        try:
+            number = self.db.query(model).filter_by(name=session_name).first().sess_id
+            return self.db.query(join_model).filter_by(sess_id=number).all()
+        except: 
+            pass 
 
     def get_db(self):
         return self.db        
